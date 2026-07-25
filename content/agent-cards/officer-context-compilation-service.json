@@ -1,0 +1,60 @@
+{
+  "name": "Officer Context Compilation Cell",
+  "description": "Compiles one reproducible purpose-specific officer context from exact Leader source, office law, admitted character chronicle, and authority-classified materials.",
+  "supportedInterfaces": [
+    {
+      "url": "${BASE_URL}/a2a/jsonrpc",
+      "protocolBinding": "JSONRPC",
+      "tenant": "",
+      "protocolVersion": "1.0"
+    },
+    {
+      "url": "${BASE_URL}/a2a/rest",
+      "protocolBinding": "HTTP+JSON",
+      "tenant": "",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "url": "https://github.com/harmonious-union/officer-context-compilation-service",
+    "organization": "Harmonious Union"
+  },
+  "version": "0.1.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E",
+        "description": "Exact RMN law for bounded officer context compilation.",
+        "required": false,
+        "params": {
+          "profile": "org.harmonious-union.officer-context-compilation.cell.v1",
+          "actor": "urn:ame:officer-context-compilation-service",
+          "cell": "ni:///sha-256;2OII7sQmAt8nlHr0mKH5zIxZFQCzmoOHE9MFVY5_GhI",
+          "law": "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E",
+          "sku": "ni:///sha-256;xs0qL_lt7I8u6EorpcnNpBiajWUq5BkiYp80DuVihSM",
+          "account": "eip155:5615610:0x3b9fb6ec8ece45d974a17cc14a358f2b0dc69fdd"
+        }
+      }
+    ],
+    "extendedAgentCard": false
+  },
+  "securitySchemes": {},
+  "securityRequirements": [],
+  "defaultInputModes": ["application/rmn+cbor"],
+  "defaultOutputModes": ["application/rmn+cbor"],
+  "skills": [
+    {
+      "id": "compile-officer-context",
+      "name": "Compile officer context",
+      "description": "Compile an exact finite denominator of Leader, office, character, material, inference, omission, and attenuated-authority sources.",
+      "tags": ["officer", "context", "a2a", "rmn", "eip155:5615610"],
+      "examples": [],
+      "inputModes": ["application/rmn+cbor"],
+      "outputModes": ["application/rmn+cbor"],
+      "securityRequirements": []
+    }
+  ],
+  "signatures": []
+}

@@ -22,7 +22,9 @@
     ".": "./src/compile.mjs"
   },
   "bin": {
-    "compile-officer-context": "./bin/compile-officer-context.mjs"
+    "compile-officer-context": "./bin/compile-officer-context.mjs",
+    "serve-officer-context-compilation": "./bin/server.mjs",
+    "serve-officer-context-compilation-activitypub": "./bin/activitypub-server.mjs"
   },
   "files": [
     "bin",
@@ -33,12 +35,18 @@
   ],
   "types": "./types/index.d.mts",
   "scripts": {
-    "check": "node --check src/canonical.mjs && node --check src/schema.mjs && node --check src/compile.mjs && node --check bin/compile-officer-context.mjs",
+    "check": "node --check src/canonical.mjs && node --check src/schema.mjs && node --check src/compile.mjs && node --check src/journal.mjs && node --check src/protocol.mjs && node --check src/activitypub-offer.mjs && node --check bin/compile-officer-context.mjs && node --check bin/execute-a2a-task.mjs && node --check bin/server.mjs && node --check bin/activitypub-server.mjs",
     "test": "node --test test/*.test.mjs",
     "verify": "npm run check && npm test"
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "@emsenn/a2a-contracted-agent-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-contracted-agent-service",
+    "@emsenn/a2a-sovereign-operation-boundary-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-sovereign-operation-boundary-service",
+    "@emsenn/activitypub-services-section": "file:../../../../../red-cup-engineering/services/web-services-section/services/activitypub-services-section",
+    "@emsenn/rmn-semantic-conformance": "file:../../../../../lenticule-science/services/obsmetrological-services-section/services/rmn-semantic-conformance"
   },
   "x-agentic-metro-enterprise": {
     "node-id": "officer-context-compilation-service",
