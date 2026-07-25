@@ -1,0 +1,16 @@
+{
+  "type": "CapabilityCellManifest",
+  "version": 2,
+  "sku": "ni:///sha-256;xs0qL_lt7I8u6EorpcnNpBiajWUq5BkiYp80DuVihSM",
+  "capability": "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E",
+  "controller": "did:pkh:eip155:5615610:0x3b9fb6ec8ece45d974a17cc14a358f2b0dc69fdd",
+  "faces": {
+    "github": {
+      "url": "https://github.com/harmonious-union/officer-context-compilation-service"
+    },
+    "evm": {
+      "network": "eip155:5615610",
+      "account": "eip155:5615610:0x3b9fb6ec8ece45d974a17cc14a358f2b0dc69fdd"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ni:///sha-256;xs0qL_lt7I8u6EorpcnNpBiajWUq5BkiYp80DuVihSM",
+  "type": "StockKeepingUnit",
+  "schema": "urn:emsenn:schema:stock-keeping-unit:2026-07-24",
+  "sku": "officer-context-compilation-service.compile-officer-context.compile-officer-context.wYClx9Zy",
+  "producer": {
+    "actor": "urn:ame:officer-context-compilation-service",
+    "nodeId": "officer-context-compilation-service",
+    "account": "eip155:5615610:0x3b9fb6ec8ece45d974a17cc14a358f2b0dc69fdd"
+  },
+  "product": {
+    "name": "Officer context compilation",
+    "kind": "service-invocation",
+    "contract": {
+      "id": "compile-officer-context",
+      "law": "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E"
+    },
+    "operation": "compile-officer-context",
+    "description": "Compile one reproducible, purpose-specific officer context from exact Leader source, office law, admitted character chronicle, authority-classified materials, explicit inferences, and omissions."
+  },
+  "denominations": [
+    "USD"
+  ],
+  "pricing": {
+    "intrinsicPrice": null,
+    "priceFormation": "counterparty-border-offer"
+  }
+}
