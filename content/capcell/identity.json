@@ -5,11 +5,11 @@
   "sku": "ni:///sha-256;xs0qL_lt7I8u6EorpcnNpBiajWUq5BkiYp80DuVihSM",
   "capability": "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E",
   "controller": "did:pkh:eip155:5615610:0x3b9fb6ec8ece45d974a17cc14a358f2b0dc69fdd",
-  "manifestRevision": "ni:///sha-256;9jRhuRuMG3v-OwWUKqUx5-9Rc6YWkVvaRcYeDjiPhLg",
+  "manifestRevision": "ni:///sha-256;zGGQs1_ej5vJfOm24oMTwJWcQnqtau5oosA0rGiVHVc",
   "completion": {
-    "disposition": "incomplete",
+    "disposition": "profile-admitted-package-unpublished",
     "missingRequiredBindings": [
-      "activitypub"
+      "npm"
     ]
   }
 }

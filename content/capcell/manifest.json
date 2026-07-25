@@ -8,6 +8,19 @@
     "github": {
       "url": "https://github.com/harmonious-union/officer-context-compilation-service"
     },
+    "activitypub": {
+      "actor": "https://bare-cedar-fog.561.group/actors/officer-context-compilation",
+      "outbox": "https://bare-cedar-fog.561.group/actors/officer-context-compilation/outbox"
+    },
+    "a2a": {
+      "agentCard": "https://bare-cedar-fog.561.group/a2a/officer-context-compilation/.well-known/agent-card.json"
+    },
+    "x402": {
+      "offerActivity": "https://bare-cedar-fog.561.group/activities/rmn-xyQYzryriPS4h_Y3KEJVOFobg7wv-2TvPQM6sTU4zG8",
+      "asset": "USD",
+      "amount": "0",
+      "network": "eip155:5615610"
+    },
     "evm": {
       "network": "eip155:5615610",
       "account": "eip155:5615610:0x3b9fb6ec8ece45d974a17cc14a358f2b0dc69fdd"
