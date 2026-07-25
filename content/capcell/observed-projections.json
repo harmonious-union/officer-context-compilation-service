@@ -13,6 +13,15 @@
     "outbox": "https://bare-cedar-fog.561.group/actors/officer-context-compilation/outbox",
     "activity": "https://bare-cedar-fog.561.group/activities/rmn-xyQYzryriPS4h_Y3KEJVOFobg7wv-2TvPQM6sTU4zG8"
   },
+  "marketDiscovery": {
+    "discoveryCell": "ni:///sha-256;N3uhukrVV1WpenGlzZTwH0N75wzafq2NHz4qAFDPD1U",
+    "offer": "ni:///sha-256;2taXYvMwX9-sWHCDtMUkBB36W4FdLUd4SVXBQnlemdU",
+    "operation": "compile-officer-context",
+    "candidateCount": 1,
+    "refusalCount": 0,
+    "agentCardSignatureVerified": true,
+    "completeness": "supplied-denominator-only"
+  },
   "a2aAgent": {
     "protocol": "A2A",
     "protocolVersion": "1.0",
