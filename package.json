@@ -1,0 +1,21 @@
+{
+  "name": "@emsenn/executive-officer-context-compilation-service",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Compiles one reproducible purpose-specific Executive Officer work context from exact Leader source, office law, admitted character chronicle, and authority-classified materials, or returns a typed refusal.",
+  "keywords": [
+    "capability-cell",
+    "context-engineering",
+    "agent-orchestration"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emsenn/executive-officer-context-compilation-service.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
