@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actions.561.group/officer-context-compilation/schemas/output.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "bundle", "receipt"],
+  "properties": {
+    "type": {"const": "OfficerContextCompilation"},
+    "bundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "law", "purpose", "leaderSource", "office", "character", "materials", "inferences", "omissions", "denominator", "authority"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+        "type": {"const": "OfficerContextBundle"},
+        "law": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+        "purpose": {"type": "string", "minLength": 1},
+        "leaderSource": {"type": "array", "minItems": 1},
+        "office": {"type": "object"},
+        "character": {"type": "object"},
+        "materials": {"type": "array"},
+        "inferences": {"type": "array"},
+        "omissions": {"type": "array"},
+        "denominator": {"type": "object"},
+        "authority": {"type": "object"}
+      }
+    },
+    "receipt": {"$ref": "state.schema.json"}
+  }
+}

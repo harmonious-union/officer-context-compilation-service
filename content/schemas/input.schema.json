@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actions.561.group/officer-context-compilation/schemas/input.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "requestId", "requestedAt", "purpose", "leaderSource", "office", "character", "materials", "inferences", "omissions", "authority"],
+  "properties": {
+    "type": {"const": "OfficerContextCompilationRequest"},
+    "requestId": {"type": "string", "minLength": 1},
+    "requestedAt": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T"},
+    "purpose": {"type": "string", "minLength": 1},
+    "leaderSource": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}},
+    "office": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "epoch", "source"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "epoch": {"type": "string", "minLength": 1},
+        "source": {"$ref": "#/$defs/source"}
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "epoch", "source", "chronicle"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "epoch": {"type": "string", "minLength": 1},
+        "source": {"$ref": "#/$defs/source"},
+        "chronicle": {"type": "array", "items": {"$ref": "#/$defs/source"}}
+      }
+    },
+    "materials": {"type": "array", "items": {"$ref": "#/$defs/material"}},
+    "inferences": {"type": "array", "items": {"$ref": "#/$defs/inference"}},
+    "omissions": {"type": "array", "items": {"$ref": "#/$defs/omission"}},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["customer", "office", "allowedActions", "withheldActions"],
+      "properties": {
+        "customer": {"type": "string", "minLength": 1},
+        "office": {"type": "string", "minLength": 1},
+        "allowedActions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "withheldActions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "semanticId", "bytesBase64"],
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "semanticId": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+        "bytesBase64": {"type": "string"}
+      }
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "owner", "purpose", "authorityClass", "semanticId", "bytesBase64"],
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "purpose": {"type": "string", "minLength": 1},
+        "authorityClass": {"enum": ["current-law", "current-practice", "admitted-research", "legacy-prior-art", "customer-overlay"]},
+        "semanticId": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+        "bytesBase64": {"type": "string"}
+      }
+    },
+    "inference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "author", "semanticId", "bytesBase64"],
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "author": {"type": "string", "minLength": 1},
+        "semanticId": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+        "bytesBase64": {"type": "string"}
+      }
+    },
+    "omission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "reason"],
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

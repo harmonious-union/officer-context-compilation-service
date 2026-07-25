@@ -1,0 +1,8 @@
+#lang rmn/v2
+(map
+  ("type" "CompileOfficerContextLaw")
+  ("version" 1)
+  ("precondition" "Receive one purpose-specific request carrying at least one exact Leader source, one exact officer office epoch, one exact character epoch and chronicle, authority-classified materials, explicit incumbent inferences, omissions, and an attenuated authority boundary.")
+  ("operation" "Validate the consumed schemas; verify every supplied byte sequence against its RFC 6920 SHA-256 identity; reject contradictory identity reuse; preserve Leader source, office law, character chronicle, settled material, inference, omission, and authority as distinct sorted partitions; and identify the resulting bundle independently of receipt time.")
+  ("postcondition" "Return one reproducible OfficerContextBundle and one appendable ContextCompilationReceipt, or one typed refusal. The bundle grants no capability, changes no incumbency, performs no retrieval or inference, and writes no customer state.")
+  ("refusal" "Refuse malformed input, missing required partitions, semantic identity mismatch, contradictory bytes under one identity, unknown authority classes, or an authority boundary that does not name both allowed and withheld actions."))

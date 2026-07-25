@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actions.561.group/officer-context-compilation/schemas/state.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "id", "requestId", "bundle", "recordedAt", "disposition"],
+  "properties": {
+    "type": {"const": "ContextCompilationReceipt"},
+    "id": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+    "requestId": {"type": "string", "minLength": 1},
+    "bundle": {"type": "string", "pattern": "^ni:///sha-256;[A-Za-z0-9_-]{43}$"},
+    "recordedAt": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T"},
+    "disposition": {"const": "compiled"}
+  }
+}
