@@ -1,4 +1,4 @@
-import { createRelationalOperationProtocol } from "@emsenn/a2a-sovereign-operation-boundary-service";
+import { createRelationalOperationProtocol } from "@red-cup-engineering/a2a-sovereign-operation-boundary-service";
 
 export const contextCompilationProtocol = createRelationalOperationProtocol({
   requestKind: "org.harmonious-union.officer-context-compilation.a2a-request.v1",

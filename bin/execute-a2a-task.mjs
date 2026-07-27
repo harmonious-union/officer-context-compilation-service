@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { executeRelationalOperationMessage } from "@emsenn/a2a-sovereign-operation-boundary-service";
+import { executeRelationalOperationMessage } from "@red-cup-engineering/a2a-sovereign-operation-boundary-service";
 import { compileOfficerContext, refusalFor } from "../src/compile.mjs";
 import { appendInvocation } from "../src/journal.mjs";
 import { contextCompilationProtocol } from "../src/protocol.mjs";

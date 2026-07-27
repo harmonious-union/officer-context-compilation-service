@@ -1,9 +1,9 @@
 import { randomUUID } from "node:crypto";
 import { Message, Role } from "@a2a-js/sdk";
-import { a2aResultParts, sendRmnTask } from "@emsenn/a2a-rmn-task-client-service";
-import { extractRmnPart, rmnPart } from "@emsenn/a2a-rmn-part-service";
-import { decodeSemantic, semanticBytes, semanticId } from "@emsenn/rmn-semantic-conformance";
-import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@emsenn/rmn-semantic-conformance/relational-value";
+import { a2aResultParts, sendRmnTask } from "@red-cup-engineering/a2a-rmn-task-client-service";
+import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
+import { decodeSemantic, semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
+import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@red-cup-engineering/rmn-semantic-conformance/relational-value";
 
 export const OFFICER_CONTEXT_AGENT = process.env.OFFICER_CONTEXT_COMPILATION_AGENT_CARD_URL
   ?? "https://bare-cedar-fog.561.group/a2a/officer-context-compilation/.well-known/agent-card.json";

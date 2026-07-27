@@ -1,5 +1,5 @@
 {
-  "name": "@harmonious-union/officer-context-compilation-service",
+  "name": "@union-officer-academy/officer-context-compilation-service",
   "version": "0.1.0",
   "private": false,
   "type": "module",
@@ -45,12 +45,12 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
-    "@emsenn/a2a-contracted-agent-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-contracted-agent-service",
-    "@emsenn/a2a-rmn-part-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-rmn-part-service",
-    "@emsenn/a2a-rmn-task-client-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-rmn-task-client-service",
-    "@emsenn/a2a-sovereign-operation-boundary-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-sovereign-operation-boundary-service",
-    "@emsenn/activitypub-services-section": "file:../../../../../red-cup-engineering/services/web-services-section/services/activitypub-services-section",
-    "@emsenn/rmn-semantic-conformance": "file:../../../../../red-cup-engineering/services/model-services-section/services/relational-model-services-section/services/relational-model-notation-services-section/services/rmn-conformance-service"
+    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.0",
+    "@red-cup-engineering/a2a-rmn-part-service": "1.0.0",
+    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.0",
+    "@red-cup-engineering/a2a-sovereign-operation-boundary-service": "1.0.0",
+    "@red-cup-engineering/activitypub-services-section": "1.0.0",
+    "@red-cup-engineering/rmn-semantic-conformance": "6.0.0"
   },
   "x-agentic-metro-enterprise": {
     "node-id": "officer-context-compilation-service",
@@ -69,5 +69,23 @@
         "state": "content/schemas/state.schema.json"
       }
     }
+  },
+  "x-semiotic-voxel": {
+    "profile": "org.harmonious-union.semiotic-voxel.v1",
+    "owner": "union-officer-academy",
+    "kind": "capability-cell",
+    "actor": "urn:ame:officer-context-compilation-service",
+    "operations": [
+      "compile-officer-context"
+    ],
+    "capabilities": [
+      {
+        "capability": "officer-context-compilation-service",
+        "faces": [
+          "compile-officer-context"
+        ]
+      }
+    ],
+    "package": "@union-officer-academy/officer-context-compilation-service"
   }
 }

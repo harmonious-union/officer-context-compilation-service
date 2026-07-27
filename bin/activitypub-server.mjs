@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { randomBytes } from "node:crypto";
-import { serveActivityPubProvider } from "@emsenn/activitypub-services-section/server";
+import { serveActivityPubProvider } from "@red-cup-engineering/activitypub-services-section/server";
 import { createContextCompilationOfferOutbox } from "../src/activitypub-offer.mjs";
 
 const origin = process.env.ACTIVITYPUB_ORIGIN ?? "https://bare-cedar-fog.561.group";
