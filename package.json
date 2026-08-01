@@ -1,6 +1,6 @@
 {
   "name": "@union-officer-academy/officer-context-compilation-service",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "description": "Compiles one reproducible purpose-specific officer context from exact Leader source, office law, admitted character chronicle, and authority-classified materials, or returns a typed refusal.",
@@ -23,12 +23,12 @@
     "./client": "./src/client.mjs"
   },
   "bin": {
-    "compile-officer-context": "./bin/compile-officer-context.mjs",
-    "serve-officer-context-compilation": "./bin/server.mjs",
-    "serve-officer-context-compilation-activitypub": "./bin/activitypub-server.mjs"
+    "compile-officer-context": "./scripts/compile-officer-context.mjs",
+    "serve-officer-context-compilation": "./scripts/server.mjs",
+    "serve-officer-context-compilation-activitypub": "./scripts/activitypub-server.mjs"
   },
   "files": [
-    "bin",
+    "scripts",
     "content/contracts",
     "content/schemas",
     "src",
@@ -36,7 +36,7 @@
   ],
   "types": "./types/index.d.mts",
   "scripts": {
-    "check": "node --check src/canonical.mjs && node --check src/schema.mjs && node --check src/compile.mjs && node --check src/client.mjs && node --check src/journal.mjs && node --check src/protocol.mjs && node --check src/activitypub-offer.mjs && node --check bin/compile-officer-context.mjs && node --check bin/execute-a2a-task.mjs && node --check bin/server.mjs && node --check bin/activitypub-server.mjs",
+    "check": "node --check src/canonical.mjs && node --check src/schema.mjs && node --check src/compile.mjs && node --check src/client.mjs && node --check src/journal.mjs && node --check src/protocol.mjs && node --check src/activitypub-offer.mjs && node --check scripts/compile-officer-context.mjs && node --check scripts/execute-a2a-task.mjs && node --check scripts/server.mjs && node --check scripts/activitypub-server.mjs",
     "test": "node --test test/*.test.mjs",
     "verify": "npm run check && npm test"
   },
@@ -45,11 +45,11 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
-    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.4",
-    "@red-cup-engineering/a2a-rmn-part-service": "1.0.0",
-    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.0",
-    "@red-cup-engineering/a2a-sovereign-operation-boundary-service": "1.0.0",
+    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.5",
+    "@red-cup-engineering/a2a-rmn-part-service": "1.0.1",
+    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.1",
+    "@red-cup-engineering/a2a-sovereign-operation-boundary-service": "1.0.1",
     "@red-cup-engineering/activitypub-services-section": "1.0.2",
-    "@red-cup-engineering/rmn-semantic-conformance": "6.0.1"
+    "@red-cup-engineering/rmn-semantic-conformance": "6.0.2"
   }
 }
