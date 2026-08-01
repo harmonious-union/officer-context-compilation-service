@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { rawNiUri } from "@red-cup-engineering/rmn-semantic-conformance-die/canonical-cbor";
 
 export function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -9,7 +9,7 @@ export function canonical(value) {
 }
 
 export function bytesNi(bytes) {
-  return `ni:///sha-256;${createHash("sha256").update(bytes).digest("base64url")}`;
+  return rawNiUri(bytes);
 }
 
 export function valueNi(value) {
