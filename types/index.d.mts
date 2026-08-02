@@ -18,6 +18,5 @@ export interface OfficerContextCompilationRequest {
   readonly authority: { readonly customer: string; readonly office: string; readonly allowedActions: readonly string[]; readonly withheldActions: readonly string[] };
 }
 
-export declare const CAPABILITY_LAW: `ni:///sha-256;${string}`;
 export declare function compileOfficerContext(request: OfficerContextCompilationRequest): Readonly<Record<string, unknown>>;
 export declare function refusalFor(error: unknown, request?: Partial<OfficerContextCompilationRequest>): Readonly<Record<string, unknown>>;

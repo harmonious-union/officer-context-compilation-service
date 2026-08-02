@@ -1,14 +1,11 @@
 import { materializeRmnActivity, ACTIVITYSTREAMS_PUBLIC } from "@red-cup-engineering/activitypub-services-section/rmn-activity";
-import { semanticBytes } from "@red-cup-engineering/rmn-semantic-conformance";
-import { encodeRelationalValue } from "@red-cup-engineering/rmn-semantic-conformance/relational-value";
+import { semanticBytes } from "@red-cup-engineering/relation-model-notation-runtime";
+import { encodeRelationalValue } from "@red-cup-engineering/relation-model-notation-runtime/relational-value";
 
 export const CONTEXT_COMPILATION_OFFER = Object.freeze({
   kind: "org.emsenn.capability-offer.v3",
-  cell: "ni:///sha-256;2OII7sQmAt8nlHr0mKH5zIxZFQCzmoOHE9MFVY5_GhI",
-  sku: "ni:///sha-256;xs0qL_lt7I8u6EorpcnNpBiajWUq5BkiYp80DuVihSM",
   provider: "urn:ame:officer-context-compilation-service",
   operation: "compile-officer-context",
-  law: "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E",
   agentCard: "https://bare-cedar-fog.561.group/a2a/officer-context-compilation/.well-known/agent-card.json",
   authorization: Object.freeze({ profile: "none", grantRequired: false }),
   price: Object.freeze({ protocol: "x402", asset: "USD", amount: "0", network: "eip155:5615610" }),

@@ -1,7 +1,6 @@
 import { bytesNi, canonical, valueNi } from "./canonical.mjs";
 import { assertSchema, loadSchema } from "./schema.mjs";
 
-export const CAPABILITY_LAW = "ni:///sha-256;wYClx9ZyN64CUIaHDO_44U9n83aOhK1FKbryOcYyi7E";
 const INPUT_SCHEMA = loadSchema(new URL("../content/schemas/input.schema.json", import.meta.url));
 const OUTPUT_SCHEMA = loadSchema(new URL("../content/schemas/output.schema.json", import.meta.url));
 const REFUSAL_SCHEMA = loadSchema(new URL("../content/schemas/refusal.schema.json", import.meta.url));
@@ -78,7 +77,6 @@ export function compileOfficerContext(request) {
   });
   const body = Object.freeze({
     type: "OfficerContextBundle",
-    law: CAPABILITY_LAW,
     purpose: request.purpose,
     leaderSource,
     office: Object.freeze({ id: request.office.id, epoch: request.office.epoch, source: officeSource }),

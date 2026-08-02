@@ -12,7 +12,7 @@ serveContractedAgent({
   baseUrl,
   agentCard: resolve("content/agent-cards/officer-context-compilation-service.json"),
   executor: process.execPath,
-  executorArgs: [resolve("bin/execute-a2a-task.mjs")],
+  executorArgs: [resolve("scripts/execute-a2a-task.mjs")],
 }).then(() => process.stdout.write(`${baseUrl}\n`)).catch((error) => {
   process.stderr.write(`${error.stack ?? error.message}\n`);
   process.exitCode = 1;
