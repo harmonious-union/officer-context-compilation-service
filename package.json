@@ -1,6 +1,6 @@
 {
   "name": "@union-officer-academy/officer-context-compilation-service",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "private": false,
   "type": "module",
   "description": "Compiles one reproducible purpose-specific officer context from exact Leader source, office law, admitted character chronicle, and authority-classified materials, or returns a typed refusal.",
@@ -45,11 +45,12 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
-    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.5",
+    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.7",
     "@red-cup-engineering/a2a-rmn-part-service": "1.0.1",
-    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.1",
-    "@red-cup-engineering/a2a-sovereign-operation-boundary-service": "1.0.1",
-    "@red-cup-engineering/activitypub-services-section": "1.0.2",
-    "@red-cup-engineering/relation-model-notation-runtime": "7.0.0"
+    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.2",
+    "@red-cup-engineering/a2a-sovereign-operation-boundary-service": "1.0.2",
+    "@red-cup-engineering/activitypub-services-section": "1.0.4",
+    "@red-cup-engineering/ni-uri-services-section": "0.1.1",
+    "@red-cup-engineering/semantic-content-identify-service": "0.2.2"
   }
 }

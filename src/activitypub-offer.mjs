@@ -1,6 +1,5 @@
 import { materializeRmnActivity, ACTIVITYSTREAMS_PUBLIC } from "@red-cup-engineering/activitypub-services-section/rmn-activity";
-import { semanticBytes } from "@red-cup-engineering/relation-model-notation-runtime";
-import { encodeRelationalValue } from "@red-cup-engineering/relation-model-notation-runtime/relational-value";
+import { EMPTY_WITNESS_ROOT, identifyJsonSemanticContent } from "@red-cup-engineering/semantic-content-identify-service";
 
 export const CONTEXT_COMPILATION_OFFER = Object.freeze({
   kind: "org.emsenn.capability-offer.v3",
@@ -13,8 +12,7 @@ export const CONTEXT_COMPILATION_OFFER = Object.freeze({
 });
 
 function offerBytes() {
-  const encoded = encodeRelationalValue(CONTEXT_COMPILATION_OFFER);
-  return semanticBytes(["ascribe", encoded.type, encoded.term]);
+  return identifyJsonSemanticContent({ objectKind: CONTEXT_COMPILATION_OFFER.kind, value: CONTEXT_COMPILATION_OFFER, witnessRoot: EMPTY_WITNESS_ROOT }).bytes;
 }
 
 export function createContextCompilationOfferOutbox({ origin, identifier }) {

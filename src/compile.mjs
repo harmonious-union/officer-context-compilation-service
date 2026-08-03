@@ -64,6 +64,10 @@ export function compileOfficerContext(request) {
   const chronicle = sorted(request.character.chronicle.map((source, index) => verified(source, `$.character.chronicle[${index}]`)));
   const materials = sorted(request.materials.map((source, index) => verified(source, `$.materials[${index}]`)));
   const inferences = sorted(request.inferences.map((source, index) => verified(source, `$.inferences[${index}]`)));
+  const laws = materials.filter(({ authorityClass }) => authorityClass === "current-law");
+  if (laws.length !== 1) {
+    throw new ContextCompilationError("E_AUTHORITY", "context compilation requires exactly one current-law material", "$.materials");
+  }
   verifyNoContradiction({ leaderSource, office: [officeSource], character: [characterSource], chronicle, materials, inferences });
   const omissions = sorted(request.omissions);
   const denominatorMembers = [...leaderSource, officeSource, characterSource, ...chronicle, ...materials, ...inferences]
@@ -77,6 +81,7 @@ export function compileOfficerContext(request) {
   });
   const body = Object.freeze({
     type: "OfficerContextBundle",
+    law: laws[0].semanticId,
     purpose: request.purpose,
     leaderSource,
     office: Object.freeze({ id: request.office.id, epoch: request.office.epoch, source: officeSource }),
