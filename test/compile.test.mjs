@@ -1,4 +1,5 @@
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { bytesNi } from "../src/canonical.mjs";
 import { compileOfficerContext, ContextCompilationError, refusalFor } from "../src/compile.mjs";
@@ -82,4 +83,19 @@ test("refuses context loadouts that claim an action is both permitted and withhe
   input.authority.withheldActions.push("fabricate");
   assert.throws(() => compileOfficerContext(input), (error) =>
     error instanceof ContextCompilationError && error.code === "E_AUTHORITY");
+});
+
+test("the public documentation loadout compiles from exact source bytes with publish withheld", () => {
+  const input = JSON.parse(readFileSync(new URL("../examples/documentation-officer-context-request.json", import.meta.url), "utf8"));
+  const outcome = compileOfficerContext(input);
+  assert.equal(outcome.type, "OfficerContextCompilation");
+  assert.equal(outcome.bundle.denominator.count, 4);
+  assert.equal(outcome.bundle.denominator.omitted, 0);
+  assert.equal(outcome.bundle.denominator.completeness, "complete");
+  assert.deepEqual(outcome.bundle.authority.allowedActions, ["draft", "read"]);
+  assert.deepEqual(outcome.bundle.authority.withheldActions, ["publish"]);
+  assert.equal(outcome.bundle.authority.grantsCapabilities, false);
+  const repeated = compileOfficerContext({ ...input, requestedAt: "2026-10-18T20:00:00.000Z" });
+  assert.equal(outcome.bundle.id, repeated.bundle.id);
+  assert.notEqual(outcome.receipt.id, repeated.receipt.id);
 });
