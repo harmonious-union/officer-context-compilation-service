@@ -47,3 +47,39 @@ test("refuses one identity carrying contradictory values across partitions", () 
   input.inferences.push({ ...source("urn:law:1", "a conflicting value"), author: "urn:session:test" });
   assert.throws(() => compileOfficerContext(input), (error) => error instanceof ContextCompilationError && error.code === "E_CONTRADICTION");
 });
+
+test("refuses a source identity reused under another authority class even with identical bytes", () => {
+  const input = request();
+  input.materials.push({
+    ...source("urn:law:1", "office persists across incumbents"),
+    owner: "another-owner", purpose: "legacy text", authorityClass: "legacy-prior-art"
+  });
+  assert.throws(() => compileOfficerContext(input), (error) =>
+    error instanceof ContextCompilationError && error.code === "E_DUPLICATE");
+});
+
+test("refuses omitted source identities that are present or counted twice", () => {
+  const present = request();
+  present.omissions.push({ identity: "urn:office:xo", reason: "claimed missing" });
+  assert.throws(() => compileOfficerContext(present), (error) =>
+    error instanceof ContextCompilationError && error.code === "E_CONTRADICTION");
+
+  const duplicated = request();
+  duplicated.omissions.push(
+    { identity: "urn:missing:1", reason: "unavailable" },
+    { identity: "urn:missing:1", reason: "unavailable twice" }
+  );
+  assert.throws(() => compileOfficerContext(duplicated), (error) =>
+    error instanceof ContextCompilationError && error.code === "E_DUPLICATE");
+
+  const honest = request();
+  honest.omissions.push({ identity: "urn:missing:1", reason: "unavailable" });
+  assert.equal(compileOfficerContext(honest).bundle.denominator.completeness, "bounded-with-gaps");
+});
+
+test("refuses context loadouts that claim an action is both permitted and withheld", () => {
+  const input = request();
+  input.authority.withheldActions.push("fabricate");
+  assert.throws(() => compileOfficerContext(input), (error) =>
+    error instanceof ContextCompilationError && error.code === "E_AUTHORITY");
+});
