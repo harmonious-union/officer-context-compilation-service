@@ -1,0 +1,55 @@
+{
+  "type": "OfficerContextCompilationRequest",
+  "requestId": "urn:example:demand:write-documentation",
+  "requestedAt": "2026-10-17T20:00:00.000Z",
+  "purpose": "Draft accurate instructions for a documentation reader without authorization to publish",
+  "leaderSource": [
+    {
+      "identity": "urn:example:leader:task",
+      "semanticId": "ni:///sha-256;3w1tJpCa3LUYZVcF_CbOhQ-JD_amWVWILJPGgvrN4mA",
+      "bytesBase64": "RHJhZnQgYSByZWFkZXIgZ3VpZGUgZnJvbSBhcHByb3ZlZCB0ZWNobmljYWwgc291cmNlcy4="
+    }
+  ],
+  "office": {
+    "id": "urn:example:office:documentation",
+    "epoch": "demo-1",
+    "source": {
+      "identity": "urn:example:source:office",
+      "semanticId": "ni:///sha-256;l1GInI4TPTZuyo1k1LGmD5t2PvargxrrbEiklwTTmks",
+      "bytesBase64": "RG9jdW1lbnRhdGlvbiBvZmZpY2U6IGludmVzdGlnYXRlIHNvdXJjZXMsIHByZXBhcmUgZHJhZnRzIGFuZCByZXF1ZXN0IGVkaXRvcmlhbCByZXZpZXcu"
+    }
+  },
+  "character": {
+    "id": "urn:example:character:helper",
+    "epoch": "demo-1",
+    "source": {
+      "identity": "urn:example:source:character",
+      "semanticId": "ni:///sha-256;Ag-y2Pg6XWYOvTKG5RO_slUCJhAYYoAvXjSJ8XpSGV4",
+      "bytesBase64": "SGVscGVyIGNoYXJhY3RlciBhc3NpZ25lZCBvbmx5IHRvIHRoaXMgZG9jdW1lbnRhdGlvbiByZXF1ZXN0Lg=="
+    },
+    "chronicle": []
+  },
+  "materials": [
+    {
+      "owner": "urn:example:org:docs",
+      "purpose": "Current editorial limits",
+      "authorityClass": "current-law",
+      "identity": "urn:example:source:law",
+      "semanticId": "ni:///sha-256;dNNcuHb2MZjB9zgR_cth4PDQdgn4_5mJjkj8HT_uOak",
+      "bytesBase64": "RHJhZnRpbmcgaXMgcGVybWl0dGVkOyBwdWJsaWNhdGlvbiByZXF1aXJlcyBpbmRlcGVuZGVudCBhcHByb3ZhbC4="
+    }
+  ],
+  "inferences": [],
+  "omissions": [],
+  "authority": {
+    "customer": "urn:example:customer:reader",
+    "office": "urn:example:office:documentation",
+    "allowedActions": [
+      "read",
+      "draft"
+    ],
+    "withheldActions": [
+      "publish"
+    ]
+  }
+}
