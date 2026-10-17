@@ -31,6 +31,7 @@
     "scripts",
     "content/contracts",
     "content/schemas",
+    "examples",
     "src",
     "types"
   ],
