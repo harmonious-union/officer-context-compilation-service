@@ -44,6 +44,9 @@ function verifyNoContradiction(partitions) {
       if (prior && prior.semanticId !== value.semanticId) {
         throw new ContextCompilationError("E_CONTRADICTION", `identity ${value.identity} carries conflicting semantic values`, `${name}.${value.identity}`);
       }
+      if (prior) {
+        throw new ContextCompilationError("E_DUPLICATE", `identity ${value.identity} occurs more than once in the context`, `${name}.${value.identity}`);
+      }
       identities.set(value.identity, value);
     }
   }
@@ -70,6 +73,26 @@ export function compileOfficerContext(request) {
   }
   verifyNoContradiction({ leaderSource, office: [officeSource], character: [characterSource], chronicle, materials, inferences });
   const omissions = sorted(request.omissions);
+  const observedIdentities = new Set(
+    [...leaderSource, officeSource, characterSource, ...chronicle, ...materials, ...inferences]
+      .map(({ identity }) => identity)
+  );
+  const omittedIdentities = new Set();
+  for (const omission of omissions) {
+    if (observedIdentities.has(omission.identity)) {
+      throw new ContextCompilationError("E_CONTRADICTION", `identity ${omission.identity} is both supplied and omitted`, "$.omissions");
+    }
+    if (omittedIdentities.has(omission.identity)) {
+      throw new ContextCompilationError("E_DUPLICATE", `omission ${omission.identity} occurs more than once`, "$.omissions");
+    }
+    omittedIdentities.add(omission.identity);
+  }
+  const forbidden = new Set(request.authority.withheldActions);
+  for (const action of request.authority.allowedActions) {
+    if (forbidden.has(action)) {
+      throw new ContextCompilationError("E_AUTHORITY", `action ${action} is both allowed and withheld`, "$.authority");
+    }
+  }
   const denominatorMembers = [...leaderSource, officeSource, characterSource, ...chronicle, ...materials, ...inferences]
     .map(({ identity, semanticId }) => ({ identity, semanticId }));
   const denominator = Object.freeze({
