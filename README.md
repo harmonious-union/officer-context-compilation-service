@@ -36,6 +36,10 @@ Source partitions are `leaderSource[]`, `office.source`, `character.source`, `ch
 
 See [`test/compile.test.mjs`](test/compile.test.mjs) for successful compilation, stable identity, changed-source refusal and authority-boundary counterexamples. The [A2A client](src/client.mjs) and [ActivityPub server](scripts/activitypub-server.mjs) are separate network-facing consumers; neither follows merely from compiling a local JSON request.
 
+## Source-edition note — stable identities across agent locales
+
+Source edition `0.1.4` orders source identities with deterministic UTF-16 code-unit comparisons, never `localeCompare`/ICU collation. A spacesuit with the same exact source bytes and identities must not change merely because its agent runs with a different OS language or region. An earlier edition could sort some non-ASCII identifiers differently: source-identity consumers must recompile from originals when selecting the new edition and retain both old and new bundle identities in their own migration records. This is a source-code change, **not** proof of registry publication, runtime installation or a renewed office grant. The native regression in `test/compile.test.mjs` covers accented identifiers in different input orders.
+
 ## Explanation — why a context is not an agent or a permission token
 
 Context compilation assembles **what an agent can be shown about a particular office and demand**. The agent's operative abilities remain downstream of the sovereign authority, service contracts and deployment. A source-addressed law paragraph tells a compiler the text was received unchanged; it does not prove the paragraph is valid law or give the recipient a credential.
