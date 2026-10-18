@@ -2,7 +2,8 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { bytesNi } from "../src/canonical.mjs";
-import { compileOfficerContext, ContextCompilationError, refusalFor } from "../src/compile.mjs";
+import { compileOfficerContext, ContextCompilationError, refusalFor, canonical } from "../src/compile.mjs";
+import { canonicalJson } from "@red-cup-engineering/json-services-section";
 
 const source = (identity, text) => {
   const bytes = Buffer.from(text);
@@ -116,4 +117,21 @@ test("loadout source identity sorts by code units, never locale-specific collati
   assert.equal(first.bundle.denominator.id,reordered.bundle.denominator.id);
   assert.equal(first.bundle.authority.conveysIncumbency,false);
   assert.equal(first.bundle.authority.grantsCapabilities,false);
+});
+
+
+test("officer context uses one upstream RFC 8785 canonicalizer, not a second leaf algorithm",()=>{
+  const representative={
+    z:"last",a:"first",accented:"Jäger",nested:{z:1,a:-0},
+    source:["id:one","id:ä","id:two"],
+  };
+  assert.equal(canonical(representative),canonicalJson(representative));
+  assert.equal(canonical({z:1,a:2}),canonical({a:2,z:1}));
+  assert.throws(()=>canonical({notJson:NaN}),/finite|invalid-json-value/i);
+  assert.throws(()=>canonical({unpaired:"\uD800"}),/unicode|surrogate/i);
+  let getterCalled=false;
+  const adversarial={};
+  Object.defineProperty(adversarial,"stolen",{enumerable:true,get(){getterCalled=true;return "value";}});
+  assert.throws(()=>canonical(adversarial),/accessor|invalid-json-value/i);
+  assert.equal(getterCalled,false,"canonicalization cannot execute an input getter");
 });
