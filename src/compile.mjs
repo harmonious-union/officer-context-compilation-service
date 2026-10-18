@@ -33,7 +33,11 @@ function verified(source, field) {
 }
 
 function sorted(values) {
-  return Object.freeze([...values].sort((left, right) => left.identity.localeCompare(right.identity)));
+  // The source-addressed bundle must not vary with ICU, OS locale or
+  // installation region. Use the same UTF-16 code-unit ordering as JSON object
+  // key sorting, never a language-sensitive human collation.
+  return Object.freeze([...values].sort((left, right) =>
+    left.identity < right.identity ? -1 : left.identity > right.identity ? 1 : 0));
 }
 
 function verifyNoContradiction(partitions) {
