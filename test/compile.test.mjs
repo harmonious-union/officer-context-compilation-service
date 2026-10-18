@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { bytesNi } from "../src/canonical.mjs";
 import { compileOfficerContext, ContextCompilationError, refusalFor, canonical } from "../src/compile.mjs";
 import { canonicalJson } from "@red-cup-engineering/json-services-section";
+import {loadSchema,assertSchema} from "../src/schema.mjs";
 
 const source = (identity, text) => {
   const bytes = Buffer.from(text);
@@ -134,4 +135,42 @@ test("officer context uses one upstream RFC 8785 canonicalizer, not a second lea
   Object.defineProperty(adversarial,"stolen",{enumerable:true,get(){getterCalled=true;return "value";}});
   assert.throws(()=>canonical(adversarial),/accessor|invalid-json-value/i);
   assert.equal(getterCalled,false,"canonicalization cannot execute an input getter");
+});
+
+
+test("closed upstream schema graph validates the original cross-file receipt reference",()=>{
+  const outcome=compileOfficerContext(request());
+  const outputSchema=loadSchema(new URL("../content/schemas/output.schema.json",import.meta.url));
+  assert.doesNotThrow(()=>assertSchema(outcome,outputSchema));
+  // The deleted leaf validator silently skipped state.schema.json. The shared
+  // Data engine must actually enforce its receipt's exact type and fields.
+  const counterfeit={
+    ...outcome,
+    receipt:{...outcome.receipt,disposition:"not-compiled"},
+  };
+  assert.throws(()=>assertSchema(counterfeit,outputSchema),/disposition|const|compiled/iu);
+  const missingField={
+    ...outcome,
+    receipt:{...outcome.receipt},
+  };
+  delete missingField.receipt.recordedAt;
+  assert.throws(()=>assertSchema(missingField,outputSchema),/recordedAt|required/iu);
+  const nonOriginal={
+    ...outputSchema,
+    $id:"https://unapproved.invalid/not-an-officer-context-schema",
+  };
+  assert.throws(()=>assertSchema(outcome,nonOriginal),/admitted original source documents/u);
+});
+
+test("shared JSON Schema rejects extra fields and wrong types on live compiler intake",()=>{
+  const input=request();
+  input.authority.allowedActions.push(7);
+  assert.throws(()=>compileOfficerContext(input),error=>
+    error instanceof ContextCompilationError &&
+    error.code==="E_SCHEMA");
+  const extra=request();
+  extra.office.grantsCapabilities=true;
+  assert.throws(()=>compileOfficerContext(extra),error=>
+    error instanceof ContextCompilationError &&
+    error.code==="E_SCHEMA");
 });
