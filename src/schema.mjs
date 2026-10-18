@@ -1,35 +1,37 @@
-import { readFileSync } from "node:fs";
+/** Contract admission belongs to the Computer Data JSON Schema engine.
+ * The four original public schema documents form one explicit closed graph;
+ * a relative $ref is NEVER accepted merely because it points outside one
+ * file. This module only supplies source files and the selected contract. */
+import {readFileSync} from "node:fs";
+import {schemaFromGraph} from "@red-cup-engineering/json-schema-services-section/contracts";
 
-const rootPointer = (schema, ref) => ref.slice(2).split("/").reduce((value, key) => value[key.replaceAll("~1", "/").replaceAll("~0", "~")], schema);
+const names=["input","output","refusal","state"];
+const source=new Map(names.map(name=>{
+  const url=new URL("../content/schemas/"+name+".schema.json",import.meta.url);
+  const schema=JSON.parse(readFileSync(url,"utf8"));
+  if(typeof schema.$id!=="string")throw new TypeError("original schema lacks an $id: "+name);
+  return [url.href,Object.freeze(schema)];
+}));
+const schemas=Object.freeze([...source.values()].map(schema=>
+  Object.freeze({id:schema.$id,schema})));
+const contracts=new Map();
 
+/** Return exactly one original named source document; no arbitrary fallback. */
 export function loadSchema(url) {
-  return JSON.parse(readFileSync(url, "utf8"));
+  const schema=source.get(url.href);
+  if(!schema)throw new TypeError("unknown officer-context schema source: "+url.href);
+  return schema;
 }
 
-export function assertSchema(value, selected, { root = selected, field = "$" } = {}) {
-  if (selected.$ref) {
-    if (!selected.$ref.startsWith("#/")) return;
-    return assertSchema(value, rootPointer(root, selected.$ref), { root, field });
+/** Read the original closed schema graph through the Data-owned validator.
+ * A nested or relative reference must resolve inside this same explicit set. */
+export function assertSchema(value,selected,{field="$"}={}) {
+  if(!schemas.some(({schema})=>schema===selected))
+    throw new TypeError("officer-context schema is not one of the admitted original source documents");
+  let contract=contracts.get(selected.$id);
+  if(contract===undefined) {
+    contract=schemaFromGraph({root:selected.$id,schemas});
+    contracts.set(selected.$id,contract);
   }
-  if (selected.const !== undefined && value !== selected.const) throw new TypeError(`${field} must equal ${JSON.stringify(selected.const)}`);
-  if (selected.enum && !selected.enum.includes(value)) throw new TypeError(`${field} must be one of ${selected.enum.join("|")}`);
-  if (selected.type === "object") {
-    if (value === null || typeof value !== "object" || Array.isArray(value)) throw new TypeError(`${field} must be an object`);
-    for (const key of selected.required ?? []) if (!(key in value)) throw new TypeError(`${field}.${key} is required`);
-    if (selected.additionalProperties === false) {
-      const extras = Object.keys(value).filter((key) => !(key in (selected.properties ?? {})));
-      if (extras.length) throw new TypeError(`${field} has unexpected fields: ${extras.join(", ")}`);
-    }
-    for (const [key, child] of Object.entries(selected.properties ?? {})) {
-      if (key in value) assertSchema(value[key], child, { root, field: `${field}.${key}` });
-    }
-  } else if (selected.type === "array") {
-    if (!Array.isArray(value)) throw new TypeError(`${field} must be an array`);
-    if (value.length < (selected.minItems ?? 0)) throw new TypeError(`${field} requires at least ${selected.minItems} items`);
-    value.forEach((item, index) => assertSchema(item, selected.items ?? {}, { root, field: `${field}[${index}]` }));
-  } else if (selected.type === "string") {
-    if (typeof value !== "string") throw new TypeError(`${field} must be a string`);
-    if (value.length < (selected.minLength ?? 0)) throw new TypeError(`${field} must not be empty`);
-    if (selected.pattern && !(new RegExp(selected.pattern, "u")).test(value)) throw new TypeError(`${field} does not match ${selected.pattern}`);
-  }
+  contract.assert(value,field);
 }
