@@ -99,3 +99,21 @@ test("the public documentation loadout compiles from exact source bytes with pub
   assert.equal(outcome.bundle.id, repeated.bundle.id);
   assert.notEqual(outcome.receipt.id, repeated.receipt.id);
 });
+
+test("loadout source identity sorts by code units, never locale-specific collation",()=>{
+  const original=request();
+  const leader=[
+    source("urn:leader:z","source z"),
+    source("urn:leader:ä","source accent"),
+    source("urn:leader:a","source a"),
+  ];
+  const first=compileOfficerContext({...original,leaderSource:leader});
+  const reordered=compileOfficerContext({...original,leaderSource:[...leader].reverse()});
+  assert.deepEqual(first.bundle.leaderSource.map(item=>item.identity),[
+    "urn:leader:a","urn:leader:z","urn:leader:ä",
+  ]);
+  assert.equal(first.bundle.id,reordered.bundle.id);
+  assert.equal(first.bundle.denominator.id,reordered.bundle.denominator.id);
+  assert.equal(first.bundle.authority.conveysIncumbency,false);
+  assert.equal(first.bundle.authority.grantsCapabilities,false);
+});
