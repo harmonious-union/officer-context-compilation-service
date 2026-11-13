@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { bytesNi } from "../src/canonical.mjs";
 import { compileOfficerContext, ContextCompilationError, refusalFor, canonical } from "../src/compile.mjs";
-import { canonicalJson } from "@red-cup-engineering/json-services-section";
+import { canonicalJson } from "@red-cup-engineering/json-engineering-services-section";
 import {loadSchema,assertSchema} from "../src/schema.mjs";
 
 const source = (identity, text) => {

@@ -3,7 +3,7 @@
  * a relative $ref is NEVER accepted merely because it points outside one
  * file. This module only supplies source files and the selected contract. */
 import {readFileSync} from "node:fs";
-import {schemaFromGraph} from "@red-cup-engineering/json-schema-services-section/contracts";
+import {schemaFromGraph} from "@red-cup-engineering/json-schema-engineering-services-section/contracts";
 
 const names=["input","output","refusal","state"];
 const source=new Map(names.map(name=>{
